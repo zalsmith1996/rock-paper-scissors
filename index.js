@@ -1,7 +1,31 @@
 let playerWins = 0;
 let computerWins = 0;
 
-game(); 
+const body = document.querySelector('html');
+
+let selectionDiv = document.createElement('div');
+selectionDiv.classList.add('playerButtons');
+let rock = document.createElement('button');
+rock.id = 'rock';
+rock.textContent = 'Rock';
+let paper = document.createElement('button');
+paper.id = 'paper';
+paper.textContent = 'Paper';
+let scissors = document.createElement('button');
+scissors.id = 'scissors'
+scissors.textContent = 'Scissors';
+selectionDiv.append(rock);
+selectionDiv.append(paper);
+selectionDiv.append(scissors);
+body.append(selectionDiv);
+
+let buttons = document.querySelectorAll('button');
+for (let button of buttons) {
+    button.addEventListener('click', e => {
+        game(e.target.id);
+    });
+}
+
 
 // Return computer's randomized choice of rock, paper, scissors
 function getComputerChoice() {
@@ -18,7 +42,7 @@ function playRound(playerSelection, computerSelection) {
     
     if (playerSelection === computerSelection)
     {
-        console.log(`It's a tie! Scores remain unchanged.`);
+        console.log(`It's a tie!`);
     }
     else if (
         (playerSelection === 'rock' && computerSelection === 'scissors') ||
@@ -34,23 +58,25 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        const computerSelection = getComputerChoice();
-        const playerSelection = prompt("Enter Rock, Paper, or Scissors: ");
-        playerSelection.toLowerCase();
+function game(playerSelection) {
+    //for (let i = 0; i < 5; i++) {}
+        
+    const computerSelection = getComputerChoice();
+    //const playerSelection = prompt("Enter Rock, Paper, or Scissors: ");
+    //playerSelection.toLowerCase();
 
-        playRound(playerSelection, computerSelection);
-    }
 
-    if (playerWins === computerWins) {
-        console.log("After 5 rounds, it's a tie!");
-    }
-    else if
-        (playerWins > computerWins) {
-            console.lose("After 5 rounds, you win!");
-    }
-    else {
-        console.log("After 5 rounds, you lose!");
-    }
+    playRound(playerSelection, computerSelection);
+    
+
+    //if (playerWins === computerWins) {
+    //    console.log("It's a tie!");
+    //}
+    //else if
+    //    (playerWins > computerWins) {
+    //        console.lose("You win!");
+    //}
+    //else {
+    //    console.log("You lose!");
+    //}
 }
