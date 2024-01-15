@@ -3,6 +3,14 @@ let computerWins = 0;
 
 const body = document.querySelector('html');
 
+let scoreDiv = document.createElement('div');
+scoreDiv.classList.add('scores');
+scoreDiv.textContent = `Player Wins: ${playerWins}
+Computer Wins: ${computerWins}`;
+let gameOutput = document.createElement('div');
+gameOutput.classList.add('output');
+
+
 let selectionDiv = document.createElement('div');
 selectionDiv.classList.add('playerButtons');
 let rock = document.createElement('button');
@@ -17,7 +25,11 @@ scissors.textContent = 'Scissors';
 selectionDiv.append(rock);
 selectionDiv.append(paper);
 selectionDiv.append(scissors);
+body.append(scoreDiv);
+body.append(gameOutput);
 body.append(selectionDiv);
+
+
 
 let buttons = document.querySelectorAll('button');
 for (let button of buttons) {
@@ -40,43 +52,44 @@ function capitalizeString(string) {
 
 function playRound(playerSelection, computerSelection) {
     
+    
+    
     if (playerSelection === computerSelection)
     {
-        console.log(`It's a tie!`);
+        gameOutput.textContent = `It's a tie!`;
     }
     else if (
         (playerSelection === 'rock' && computerSelection === 'scissors') ||
         (playerSelection === 'scissors' && computerSelection === 'paper') ||
         (playerSelection === 'paper' && computerSelection === 'rock')
     ) {
-        console.log(`You win! ${capitalizeString(playerSelection)} beats ${capitalizeString(computerSelection)}.`);
+        gameOutput.textContent = `You win! ${capitalizeString(playerSelection)} beats ${capitalizeString(computerSelection)}.`;
         playerWins++;
+        scoreDiv.textContent = `Player Wins: ${playerWins}
+                                Computer Wins: ${computerWins}`;
     }
     else {
-        console.log(`You lose! ${capitalizeString(computerSelection)} beats ${capitalizeString(playerSelection)}.`);
+        gameOutput.textContent = `You lose! ${capitalizeString(computerSelection)} beats ${capitalizeString(playerSelection)}.`;
         computerWins++;
+        scoreDiv.textContent = `Player Wins: ${playerWins}
+                                Computer Wins: ${computerWins}`;
+    }
+    
+    if (playerWins == 5) {
+        gameOutput.textContent = 'You won! You beat the computer 5 times.';
+        playerWins = 0;
+        computerWins = 0;
+    }
+
+    if (computerWins == 5) {
+        gameOutput.textContent = 'The Computer wins! They beat you 5 times.';
+        playerWins = 0;
+        computerWins = 0;
     }
 }
 
-function game(playerSelection) {
-    //for (let i = 0; i < 5; i++) {}
-        
+function game(playerSelection) {       
     const computerSelection = getComputerChoice();
-    //const playerSelection = prompt("Enter Rock, Paper, or Scissors: ");
-    //playerSelection.toLowerCase();
-
-
     playRound(playerSelection, computerSelection);
-    
 
-    //if (playerWins === computerWins) {
-    //    console.log("It's a tie!");
-    //}
-    //else if
-    //    (playerWins > computerWins) {
-    //        console.lose("You win!");
-    //}
-    //else {
-    //    console.log("You lose!");
-    //}
 }
